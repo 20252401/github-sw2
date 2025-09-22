@@ -1,5 +1,3 @@
-#define PIN_LED 13
-
 unsigned int count = 0;
 int toggle = 0;
 
