@@ -1,0 +1,35 @@
+#include <Servo.h>
+
+#define PIN_SERVO 10
+#define SERVO_SPEED 0.3
+#define TARGET_ANGLE 90
+#define TOTAL_TIME 300000UL
+
+Servo myservo;
+
+unsigned long startTime;
+float startAngle = 0;
+float currentAngle = 0;
+
+void setup() {
+  myservo.attach(PIN_SERVO);
+  myservo.write(startAngle);
+  delay(1000);
+  startTime = millis();
+}
+
+void loop() {
+  unsigned long elapsed = millis() - startTime;
+
+  if (elapsed <= TOTAL_TIME) {
+    float progress = (float)elapsed / TOTAL_TIME;
+    currentAngle = startAngle + (TARGET_ANGLE - startAngle) * progress;
+    myservo.write(currentAngle);
+  } 
+  else {
+    myservo.write(TARGET_ANGLE);
+    while (true);
+  }
+
+  delay(20);
+}
